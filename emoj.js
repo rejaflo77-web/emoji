@@ -30,9 +30,21 @@ while(erros < 5) {
         "\nEscolhe o primeiro numero entre 1 e 16: "
     );
 
+    mostrar[elemento1 - 1] = true;
+
+        console.clear();
+        elementos(emojs, mostrar);
+
+
     let elemento2 = readlineSync.questionInt(
         "Escolhe o segundo numero entre 1 e 16: "
     );
+
+    mostrar[elemento2 - 1] = true;
+
+    console.clear();
+    elementos(emojs, mostrar);
+
 
     if(elemento1 === elemento2) {
         console.log("\nEscolha cartas diferentes!");
