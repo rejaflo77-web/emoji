@@ -78,6 +78,9 @@ while(erros < 5) {
     readlineSync.question(
         "\nPrima ENTER para continuar..."
     );
+
+    mostrar[elemento1 - 1]= false
+    mostrar[elemento2 - 1]= false
 }
 
 if(erros === 5) {
