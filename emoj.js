@@ -85,10 +85,11 @@ while (erros < 5) {
     readlineSync.question("\nPrima ENTER para continuar...");
 
     // Esconde sempre as cartas
+if(emojs[elemento1 -1 ] !== emojs[elemento2 -1]){
     mostrar[elemento1 - 1] = false;
     mostrar[elemento2 - 1] = false;
 }
-
+}
 if (erros === 5) {
     console.log("\n💀 Fim do jogo! Você atingiu 5 erros.");
 }
