@@ -8,7 +8,11 @@ const emojs = [
     "🏵️", "🎀", "👗", "🎁"
 ];
 
+
+emojs.sort(() => Math.random() - 0.5);
+
 let mostrar = Array(16).fill(false);
+let concluidas = Array(16).fill(false);
 
 let erros = 0;
 let pares = 0;
@@ -21,14 +25,21 @@ while (erros < 5) {
     console.log("Erros:", erros);
     console.log();
 
-    elementos(emojs, mostrar);
+    elementos(emojs, mostrar, concluidas);
 
+   //Escolhe primeiro número
     let elemento1 = readlineSync.questionInt(
         "\nEscolhe o primeiro numero entre 1 e 16: "
     );
 
     if (elemento1 < 1 || elemento1 > 16) {
-        console.log("Número inválido!");
+        console.log("Numero inválido!");
+        readlineSync.question("Prima ENTER...");
+        continue;
+    }
+
+    if (concluidas[elemento1 - 1]) {
+        console.log("Essa carta já foi encontrada!");
         readlineSync.question("Prima ENTER...");
         continue;
     }
@@ -36,15 +47,23 @@ while (erros < 5) {
     mostrar[elemento1 - 1] = true;
 
     console.clear();
-    elementos(emojs, mostrar);
+    elementos(emojs, mostrar, concluidas);
 
+   //Escolhe o segundo número
     let elemento2 = readlineSync.questionInt(
         "\nEscolhe o segundo numero entre 1 e 16: "
     );
 
     if (elemento2 < 1 || elemento2 > 16) {
         mostrar[elemento1 - 1] = false;
-        console.log("Número inválido!");
+        console.log("Numero inválido!");
+        readlineSync.question("Prima ENTER...");
+        continue;
+    }
+
+    if (concluidas[elemento2 - 1]) {
+        mostrar[elemento1 - 1] = false;
+        console.log("Essa carta já foi encontrada!");
         readlineSync.question("Prima ENTER...");
         continue;
     }
@@ -59,7 +78,7 @@ while (erros < 5) {
     mostrar[elemento2 - 1] = true;
 
     console.clear();
-    elementos(emojs, mostrar);
+    elementos(emojs, mostrar, concluidas);
 
     console.log("\nPrimeira carta:", emojs[elemento1 - 1]);
     console.log("Segunda carta:", emojs[elemento2 - 1]);
@@ -67,6 +86,9 @@ while (erros < 5) {
     if (emojs[elemento1 - 1] === emojs[elemento2 - 1]) {
 
         pares++;
+
+        concluidas[elemento1 - 1] = true;
+        concluidas[elemento2 - 1] = true;
 
         console.log("\n🎉 Parabéns! Acertou o par.");
 
@@ -84,12 +106,16 @@ while (erros < 5) {
 
     readlineSync.question("\nPrima ENTER para continuar...");
 
-    // Esconde sempre as cartas
-if(emojs[elemento1 -1 ] !== emojs[elemento2 -1]){
-    mostrar[elemento1 - 1] = false;
-    mostrar[elemento2 - 1] = false;
+    //Esconde apenas as cartas que não pertencem a pares encontrados
+    if (!concluidas[elemento1 - 1]) {
+        mostrar[elemento1 - 1] = false;
+    }
+
+    if (!concluidas[elemento2 - 1]) {
+        mostrar[elemento2 - 1] = false;
+    }
 }
-}
+
 if (erros === 5) {
     console.log("\n💀 Fim do jogo! Você atingiu 5 erros.");
 }
